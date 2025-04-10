@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dataset Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Upload Dataset or Provide URL</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file"><br><br>
+    <input type="text" name="url" placeholder="Paste file URL"><br><br>
+    <input type="submit" value="Analyze">
+  </form>
+
+  {% if result %}
+    <h2>Results:</h2>
+    <p><strong>Source:</strong> {{ result.source }}</p>
+    <p><strong>Total Rows:</strong> {{ result.analysis.total_rows }}</p>
+    <p><strong>Null %:</strong> {{ result.analysis.null_percentage }}%</p>
+    <p><strong>Numeric Columns %:</strong> {{ result.analysis.numeric_column_percentage }}%</p>
+  {% endif %}
+</body>
+</html>
