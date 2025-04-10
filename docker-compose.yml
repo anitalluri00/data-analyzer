@@ -3,11 +3,18 @@ version: '3.8'
 services:
   sql_server:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql_server
     environment:
-      SA_PASSWORD: "your_password"
+      SA_PASSWORD: "StrongPass123!"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P StrongPass123! -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
 
   backend:
     build: ./backend
